@@ -10,15 +10,14 @@ echo "INPUT_DIR: $INPUT_DIR"
 echo "ACCESS_KEY: $ACCESS_KEY"
 
 echo $PATH
+# node_modules が install されている場所を確認
+npm root -g
 
 # Install dependencies
 npm install -g csv2geojson
 npm install -g klaw
 
-# node_modules が install されている場所を確認
-npm root -g
-
-node /bin/excel2geojson.js $INPUT_DIR
+node /excel2geojson.js $INPUT_DIR
 ls -l $INPUT_DIR
 
 exit 0
