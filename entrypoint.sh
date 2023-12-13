@@ -19,7 +19,7 @@ else
   echo "node_modules found"
 fi
 
-ls /
+ls
 
 node /bin/excel2geojson.js $INPUT_DIR
 ls $INPUT_DIR
