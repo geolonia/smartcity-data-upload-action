@@ -9,12 +9,14 @@ AWS_SECRET_ACCESS_KEY=$4
 echo "INPUT_DIR: $INPUT_DIR"
 echo "ACCESS_KEY: $ACCESS_KEY"
 
+chmod +x $INPUT_DIR/*
+
 npm install
 
 echo $INPUT_DIR
 pwd
 ls docs
 
-sudo node ./bin/excel2geojson.js $INPUT_DIR
+node ./bin/excel2geojson.js $INPUT_DIR
 
 exit 0
