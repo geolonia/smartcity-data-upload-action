@@ -5,14 +5,13 @@ node -v
 which node
 npm -v
 
-node ./bin/hello.js
 
 find . -name "package.json"
 npm install
 
 find . -name "node_modules"
-cd node_modules
-ls
+
+node ./bin/hello.js
 
 
 # INPUT_DIR=$1
