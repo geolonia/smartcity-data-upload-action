@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
 # tippecanoe のインストール（felt リポジトリから）
 RUN git clone https://github.com/felt/tippecanoe.git \
     && cd tippecanoe \
-    && make \
+    && make -j \
     && make install
 
 # go-pmtiles のインストール
