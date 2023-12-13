@@ -1,12 +1,13 @@
 const { readFile } = require('fs/promises');
 const path = require('path');
 const csv2geojson = require('csv2geojson');
+let inputDir = process.argv[2];
 
 console.log("hello world")
 
 const main = async () => {
 
-  const filePath = path.join(__dirname, '../docs/aed-locations.csv');
+  const filePath = path.join(__dirname, '..', inputDir, 'aed-locations.csv');
 
   console.log(filePath);
 
