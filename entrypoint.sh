@@ -15,8 +15,9 @@ npm install
 if [ ! -d "./node_modules" ]; then
   echo "node_modules not found"
   exit 1
+else
+  echo "node_modules found"
 fi
-
 
 ls /
 
