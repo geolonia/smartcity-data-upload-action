@@ -5,9 +5,14 @@ node -v
 which node
 npm -v
 
-find . -name "package.json"
-
 node ./bin/hello.js
+
+find . -name "package.json"
+npm install
+
+find . -name "node_modules"
+cd node_modules
+ls
 
 # INPUT_DIR=$1
 # ACCESS_KEY=$2
