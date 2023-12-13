@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     zlib1g-dev
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
 # tippecanoe のインストール（felt リポジトリから）
 RUN git clone https://github.com/felt/tippecanoe.git \
