@@ -12,27 +12,24 @@ const excelToGeoJson = async (inputDir) => {
   for await (const file of klaw(inputDir, { depthLimit: -1 })) {
     let csvData;
 
-    // if (file.path.endsWith(".xlsx")) {
-    //   const excelPath = file.path;
+    if (file.path.endsWith(".xlsx")) {
+      const excelPath = file.path;
 
+      console.log(excelPath);
+      
+      try {
+        csvData = await excel2csv(excelPath);
+      } catch (err) {
 
+        if (err.message === "FILE_ENDED") {
+          throw new ConversionError("fileEnded", excelPath);
+        }
 
-
-    //   try {
-    //     csvData = await excel2csv(excelPath);
-    //   } catch (err) {
-
-    //     if (err.message === "FILE_ENDED") {
-    //       throw new ConversionError("fileEnded", excelPath);
-    //     }
-
-    //     console.log(err);
+        console.log(err);
         
-    //     throw new ConversionError("excelToGeoJson", excelPath);
-    //   }
-    // } else 
-    if (file.path.endsWith(".csv")) {
-      console.log(file.path)
+        throw new ConversionError("excelToGeoJson", excelPath);
+      }
+    } else if (file.path.endsWith(".csv")) {
       csvData = await readFile(file.path, 'utf-8');
     }
 
