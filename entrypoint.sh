@@ -7,6 +7,8 @@ npm -v
 
 find . -name "package.json"
 
+node ./bin/hello.js
+
 # INPUT_DIR=$1
 # ACCESS_KEY=$2
 # AWS_ACCESS_KEY=$3
