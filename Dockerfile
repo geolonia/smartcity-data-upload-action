@@ -29,6 +29,6 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
 # COPY entrypoint.sh /entrypoint.sh
 
 # 現在のディレクトリを / にコピー
-COPY . /
+COPY ./* /
 
 ENTRYPOINT ["/entrypoint.sh"]
