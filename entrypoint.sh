@@ -9,11 +9,14 @@ AWS_SECRET_ACCESS_KEY=$4
 echo "INPUT_DIR: $INPUT_DIR"
 echo "ACCESS_KEY: $ACCESS_KEY"
 
-echo $PATH
-# node_modules が install されている場所を確認
-ls /
-
 npm install
+
+# node_modules が現在のディレクトリにあるか確認
+if [ ! -d "./node_modules" ]; then
+  echo "node_modules not found"
+  exit 1
+fi
+
 
 ls /
 
