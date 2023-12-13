@@ -20,10 +20,10 @@ RUN git clone https://github.com/felt/tippecanoe.git \
     && make install
 
 # go-pmtiles のインストール
-RUN curl -LO https://golang.org/dl/go1.18.linux-amd64.tar.gz \
-    && tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz \
-    && export PATH=$PATH:/usr/local/go/bin \
-    && go install github.com/protomaps/go-pmtiles@latest
+RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go-pmtiles_1.11.1_Linux_arm64.tar.gz -o go-pmtiles_1.11.1_Linux_arm64.tar.gz \
+    && tar -xzvf go-pmtiles_1.11.1_Linux_arm64.tar.gz \
+    && chmod +x pmtiles \
+    && mv pmtiles /usr/local/bin/
 
 COPY bin/ /bin/
 COPY entrypoint.sh /entrypoint.sh
