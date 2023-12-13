@@ -1,14 +1,7 @@
 #!/bin/sh
 set -e
 
-node -v
-which node
-npm -v
-
-
-find . -name "package.json"
 npm install
-
 find . -name "node_modules"
 
 node ./bin/hello.js
