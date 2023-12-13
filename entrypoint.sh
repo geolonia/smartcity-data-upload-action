@@ -17,7 +17,7 @@ npm install
 
 ls -l /
 
-node /excel2geojson.js $INPUT_DIR
+node /usr/src/app/excel2geojson.js $INPUT_DIR
 ls -l $INPUT_DIR
 
 exit 0
