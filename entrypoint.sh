@@ -11,17 +11,6 @@ echo "ACCESS_KEY: $ACCESS_KEY"
 
 npm install
 
-# node_modules が現在のディレクトリにあるか確認
-if [ ! -d "./node_modules" ]; then
-  echo "node_modules not found"
-  exit 1
-else
-  echo "node_modules found"
-fi
-
-ls
-pwd
-
 node ./bin/excel2geojson.js $INPUT_DIR
 ls $INPUT_DIR
 

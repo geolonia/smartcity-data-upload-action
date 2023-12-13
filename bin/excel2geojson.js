@@ -20,6 +20,9 @@ const excelToGeoJson = async (inputDir) => {
         if (err.message === "FILE_ENDED") {
           throw new ConversionError("fileEnded", excelPath);
         }
+
+        console.log(err);
+        
         throw new ConversionError("excelToGeoJson", excelPath);
       }
     } else if (file.path.endsWith(".csv")) {
