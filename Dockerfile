@@ -1,5 +1,7 @@
 # 基本となるイメージ
-FROM ubuntu:latest
+FROM node:latest
+
+WORKDIR /
 
 # 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y \
@@ -10,9 +12,6 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libsqlite3-dev \
     zlib1g-dev
-
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
 
 # tippecanoe のインストール（felt リポジトリから）
 RUN git clone https://github.com/felt/tippecanoe.git \
@@ -26,9 +25,12 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
     && chmod +x pmtiles \
     && mv pmtiles /usr/local/bin/
 
-COPY bin/ /
-COPY package.json /package.json
-COPY package-lock.json /package-lock.json
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
