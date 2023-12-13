@@ -11,7 +11,10 @@ echo "ACCESS_KEY: $ACCESS_KEY"
 
 npm install
 
+echo $INPUT_DIR
+pwd
+ls
+
 node ./bin/excel2geojson.js $INPUT_DIR
-ls $INPUT_DIR
 
 exit 0
