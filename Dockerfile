@@ -26,7 +26,10 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
     && chmod +x pmtiles \
     && mv pmtiles /usr/local/bin/
 
-RUN npm install
+# Install dependencies
+RUN npm install -g csv2geojson
+RUN npm install -g klaw
+RUN npm install -g https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz
 
 COPY bin/ /bin/
 COPY entrypoint.sh /entrypoint.sh
