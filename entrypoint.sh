@@ -13,7 +13,7 @@ npm install
 
 echo $INPUT_DIR
 pwd
-ls
+ls docs
 
 node ./bin/excel2geojson.js $INPUT_DIR
 
