@@ -6,93 +6,83 @@ const ConversionError = require('./error');
 const path = require('path');
 const inputDir = path.join(__dirname, '..', process.argv[2]);
 
-// console.log(inputDir);
+const excelToGeoJson = async (inputDir) => {
+  const promises = [];
 
-// const excelToGeoJson = async (inputDir) => {
-//   const promises = [];
+  for await (const file of klaw(inputDir, { depthLimit: -1 })) {
+    let csvData;
 
-//   for await (const file of klaw(inputDir, { depthLimit: -1 })) {
-//     let csvData;
-
-//     // if (file.path.endsWith(".xlsx")) {
-//     //   const excelPath = file.path;
+    // if (file.path.endsWith(".xlsx")) {
+    //   const excelPath = file.path;
 
 
 
 
-//     //   try {
-//     //     csvData = await excel2csv(excelPath);
-//     //   } catch (err) {
+    //   try {
+    //     csvData = await excel2csv(excelPath);
+    //   } catch (err) {
 
-//     //     if (err.message === "FILE_ENDED") {
-//     //       throw new ConversionError("fileEnded", excelPath);
-//     //     }
+    //     if (err.message === "FILE_ENDED") {
+    //       throw new ConversionError("fileEnded", excelPath);
+    //     }
 
-//     //     console.log(err);
+    //     console.log(err);
         
-//     //     throw new ConversionError("excelToGeoJson", excelPath);
-//     //   }
-//     // } else if (file.path.endsWith(".csv")) {
-//       console.log(file.path)
-//       csvData = await readFile(file.path, 'utf-8');
-//     // }
+    //     throw new ConversionError("excelToGeoJson", excelPath);
+    //   }
+    // } else 
+    if (file.path.endsWith(".csv")) {
+      console.log(file.path)
+      csvData = await readFile(file.path, 'utf-8');
+    }
 
-//     if (csvData) {
-//       const geoJsonPath = file.path.replace(/.csv$|.xlsx$/, '.json');
+    if (csvData) {
+      const geoJsonPath = file.path.replace(/.csv$|.xlsx$/, '.json');
 
-//       try {
+      try {
 
-//         csv2geojson.csv2geojson(
-//           csvData,
-//           {
-//             latfield: 'lat',
-//             lonfield: 'lng',
-//             delimiter: ','
-//           },
-//           async (err, geojson) => {
-//             await writeFile(geoJsonPath, JSON.stringify(geojson));
-//           });
+        csv2geojson.csv2geojson(
+          csvData,
+          {
+            latfield: 'lat',
+            lonfield: 'lng',
+            delimiter: ','
+          },
+          async (err, geojson) => {
+            await writeFile(geoJsonPath, JSON.stringify(geojson));
+          });
 
-//       } catch (err) {
-//         throw new ConversionError("csvToGeoJson", file.path);
-//       }
-//     }
-//   }
+      } catch (err) {
+        throw new ConversionError("csvToGeoJson", file.path);
+      }
+    }
+  }
 
-//   await Promise.all(promises);
-// }
+  await Promise.all(promises);
+}
 
 const main = async (inputDir) => {
-
-  const filePath = path.join(inputDir, 'aed-locations.csv');
-
-  console.log(filePath);
-
-  const csvData = await readFile(filePath, 'utf-8');
-
-  console.log(csvData);
-
-  // try {
-  //   excelToGeoJson(inputDir);
-  // } catch (err) {
-  //   if (err instanceof ConversionError) {
-  //     switch (err.conversionType) {
-  //       case "excelToGeoJson":
-  //         throw new Error(`Error: Excel ファイルを ${err.filePath} GeoJSON に変換できませんでした。`);
-  //         break;
-  //       case "fileEnded":
-  //         throw new Error(`Error: データが空になっているか、Excel ファイルが破損している可能性があります。`);
-  //         break;
-  //       case "csvToGeoJson":
-  //         throw new Error(`Error: CSV データ ${err.filePath} を GeoJSON に変換できませんでした。`);
-  //         break;
-  //       default:
-  //         throw new Error(err.message);
-  //     }
-  //   } else {
-  //     throw new Error(err.message);
-  //   }
-  // }
+  try {
+    excelToGeoJson(inputDir);
+  } catch (err) {
+    if (err instanceof ConversionError) {
+      switch (err.conversionType) {
+        case "excelToGeoJson":
+          throw new Error(`Error: Excel ファイルを ${err.filePath} GeoJSON に変換できませんでした。`);
+          break;
+        case "fileEnded":
+          throw new Error(`Error: データが空になっているか、Excel ファイルが破損している可能性があります。`);
+          break;
+        case "csvToGeoJson":
+          throw new Error(`Error: CSV データ ${err.filePath} を GeoJSON に変換できませんでした。`);
+          break;
+        default:
+          throw new Error(err.message);
+      }
+    } else {
+      throw new Error(err.message);
+    }
+  }
 }
 
 main(inputDir);
