@@ -11,13 +11,13 @@ echo "ACCESS_KEY: $ACCESS_KEY"
 
 echo $PATH
 # node_modules が install されている場所を確認
-ls -l /
+ls /
 
 npm install
 
-ls -l /
+ls /
 
 node /bin/excel2geojson.js $INPUT_DIR
-ls -l $INPUT_DIR
+ls $INPUT_DIR
 
 exit 0
