@@ -11,20 +11,20 @@ inputs:
     description: 'Access key to identify the user.'
     required: true
 
-  AWS_ACCESS_KEY:
+  aws_access_key:
     description: 'AWS_ACCESS_KEY'
     required: true
 
-  AWS_SECRET_ACCESS_KEY:
+  aws_secret_access_key:
     description: 'AWS_SECRET_ACCESS_KEY'
     required: true
 
 runs:
-  using: docker
-  image: 'docker://ghcr.io/geolonia/smartcity-data-upload-action:main'
+  using: 'docker'
+  image: 'Dockerfile'
 
   args:
     - ${{ inputs.input_dir }}
     - ${{ inputs.access_key }}
-    - ${{ inputs.AWS_ACCESS_KEY }}
-    - ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+    - ${{ inputs.aws_access_key }}
+    - ${{ inputs.aws_secret_access_key }}
