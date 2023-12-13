@@ -15,6 +15,6 @@ echo $INPUT_DIR
 pwd
 ls docs
 
-node ./bin/excel2geojson.js $INPUT_DIR
+sudo node ./bin/excel2geojson.js $INPUT_DIR
 
 exit 0
