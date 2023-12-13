@@ -20,6 +20,7 @@ else
 fi
 
 ls
+pwd
 
 node /bin/excel2geojson.js $INPUT_DIR
 ls $INPUT_DIR
