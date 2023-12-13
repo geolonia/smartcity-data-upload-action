@@ -26,10 +26,6 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
     && chmod +x pmtiles \
     && mv pmtiles /usr/local/bin/
 
-# Install dependencies
-RUN npm install -g csv2geojson
-RUN npm install -g klaw
-
 COPY bin/ /bin/
 COPY entrypoint.sh /entrypoint.sh
 
