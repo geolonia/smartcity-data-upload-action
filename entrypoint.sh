@@ -9,7 +9,8 @@ AWS_SECRET_ACCESS_KEY=$4
 echo "INPUT_DIR: $INPUT_DIR"
 echo "ACCESS_KEY: $ACCESS_KEY"
 
-chmod +x $INPUT_DIR/*
+chmod +x docs/*.xlsx
+chmod +x docs/*.csv
 
 npm install
 
