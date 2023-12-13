@@ -1,7 +1,7 @@
 # 基本となるイメージ
 FROM node:latest
 
-WORKDIR /
+WORKDIR /usr/src/app
 
 # 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y \
