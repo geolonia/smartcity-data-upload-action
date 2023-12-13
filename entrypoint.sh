@@ -12,3 +12,4 @@ echo "ACCESS_KEY: $ACCESS_KEY"
 # node /bin/excel2geojson.js $INPUT_DIR
 # ls -l $INPUT_DIR
 
+exit 0
