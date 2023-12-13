@@ -1,10 +1,18 @@
 #!/bin/sh
 set -e
 
-npm install
-find . -name "node_modules"
+INPUT_DIR=$1
+ACCESS_KEY=$2
+AWS_ACCESS_KEY=$3
+AWS_SECRET_ACCESS_KEY=$4
 
-node ./bin/hello.js
+
+npm install
+# find . -name "node_modules"
+# node ./bin/hello.js
+
+echo $INPUT_DIR
+node ./bin/excel2geojson.js $INPUT_DIR
 
 
 # INPUT_DIR=$1
@@ -23,6 +31,5 @@ node ./bin/hello.js
 # pwd
 # ls docs
 
-# node ./bin/excel2geojson.js $INPUT_DIR
 
 exit 0
