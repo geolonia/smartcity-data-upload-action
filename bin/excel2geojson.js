@@ -13,10 +13,7 @@ const excelToGeoJson = async (inputDir) => {
     let csvData;
 
     if (file.path.endsWith(".xlsx")) {
-      const excelPath = file.path;
-
-      console.log(excelPath);
-      
+      const excelPath = file.path;      
       try {
         csvData = await excel2csv(excelPath);
       } catch (err) {
@@ -34,7 +31,7 @@ const excelToGeoJson = async (inputDir) => {
     }
 
     if (csvData) {
-      const geoJsonPath = file.path.replace(/.csv$|.xlsx$/, '.json');
+      const geoJsonPath = file.path.replace(/.csv$|.xlsx$/, '.geojson');
 
       try {
 

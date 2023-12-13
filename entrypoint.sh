@@ -8,11 +8,10 @@ AWS_SECRET_ACCESS_KEY=$4
 
 
 npm install
-# find . -name "node_modules"
-# node ./bin/hello.js $INPUT_DIR
 
-# echo $INPUT_DIR
 node ./bin/excel2geojson.js $INPUT_DIR
+
+ls $INPUT_DIR
 
 
 # INPUT_DIR=$1
