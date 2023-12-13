@@ -8,10 +8,11 @@ RUN apt-get update && apt-get install -y \
     gdal-bin \
     git \
     build-essential \
-    nodejs \
-    npm \
     libsqlite3-dev \
     zlib1g-dev
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs npm
 
 # tippecanoe のインストール（felt リポジトリから）
 RUN git clone https://github.com/felt/tippecanoe.git \
