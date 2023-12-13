@@ -3,7 +3,8 @@ const { writeFile, readFile } = require('fs/promises');
 const klaw = require('klaw');
 const csv2geojson = require('csv2geojson');
 const ConversionError = require('./error');
-const inputDir = process.argv[2];
+const path = require('path');
+const inputDir = path.join(__dirname, '..', process.argv[2]);
 
 const excelToGeoJson = async (inputDir) => {
   const promises = [];
