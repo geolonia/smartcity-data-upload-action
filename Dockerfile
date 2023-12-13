@@ -27,6 +27,8 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
     && mv pmtiles /usr/local/bin/
 
 COPY bin/ /
+COPY package.json /package.json
+COPY package-lock.json /package-lock.json
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
