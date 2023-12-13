@@ -1,8 +1,6 @@
 # 基本となるイメージ
 FROM node:latest
 
-WORKDIR /usr/src/app
-
 # 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y \
     curl \
@@ -28,7 +26,8 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
 COPY package*.json ./
 RUN npm install
 
-COPY . .
+COPY bin /bin/
+COPY node_modules /node_modules/
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
