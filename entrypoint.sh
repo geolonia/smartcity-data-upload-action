@@ -22,7 +22,7 @@ fi
 ls
 pwd
 
-node /bin/excel2geojson.js $INPUT_DIR
+node ./bin/excel2geojson.js $INPUT_DIR
 ls $INPUT_DIR
 
 exit 0
