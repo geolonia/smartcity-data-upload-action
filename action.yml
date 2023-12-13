@@ -1,0 +1,30 @@
+name: 'Generate SmartCity vector tiles'
+description: 'generate pmtiles with tippeacanoe'
+author: 'Geolonia'
+inputs:
+  input_dir:
+    description: 'Input directory.'
+    required: true
+    default: './'
+
+  access_key:
+    description: 'Access key to identify the user.'
+    required: true
+
+  AWS_ACCESS_KEY:
+    description: 'AWS_ACCESS_KEY'
+    required: true
+
+  AWS_SECRET_ACCESS_KEY:
+    description: 'AWS_SECRET_ACCESS_KEY'
+    required: true
+
+runs:
+  using: docker
+  image: 'docker://ghcr.io/geolonia/smartcity-data-upload-action:main'
+
+  args:
+    - ${{ inputs.input_dir }}
+    - ${{ inputs.access_key }}
+    - ${{ inputs.AWS_ACCESS_KEY }}
+    - ${{ inputs.AWS_SECRET_ACCESS_KEY }}
