@@ -24,6 +24,7 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
     && mv pmtiles /usr/local/bin/
 
 RUN npm install
+RUN ls
 COPY node_modules /node_modules/
 COPY bin /bin/
 
