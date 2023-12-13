@@ -7,7 +7,11 @@ RUN apt-get update && apt-get install -y \
     jq \
     gdal-bin \
     git \
-    build-essential
+    build-essential \
+    nodejs \
+    npm \
+    libsqlite3-dev \
+    zlib1g-dev
 
 # tippecanoe のインストール（felt リポジトリから）
 RUN git clone https://github.com/felt/tippecanoe.git \
@@ -21,6 +25,7 @@ RUN curl -LO https://golang.org/dl/go1.18.linux-amd64.tar.gz \
     && export PATH=$PATH:/usr/local/go/bin \
     && go install github.com/protomaps/go-pmtiles@latest
 
+COPY bin/ /bin/
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
