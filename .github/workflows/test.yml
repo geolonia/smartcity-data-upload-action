@@ -6,6 +6,9 @@ jobs:
     name: Test this action
     permissions:
      contents: read
+     id-token: write
+     pages: write
+
     steps:
       - name: checkout
         uses: actions/checkout@v3
