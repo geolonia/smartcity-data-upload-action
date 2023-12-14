@@ -1,6 +1,8 @@
 # 基本となるイメージ
 FROM node:latest
 
+WORKDIR /app
+
 # 必要なパッケージのインストール
 RUN apt-get update && apt-get install -y \
     curl \
@@ -23,7 +25,7 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
     && chmod +x pmtiles \
     && mv pmtiles /usr/local/bin/
 
-# 現在のディレクトリを / にコピー
-COPY ./* /
+# 現在のディレクトリを ディレクトリ構成を維持して / にコピー
+COPY . /app
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]

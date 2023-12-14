@@ -22,9 +22,8 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-
-  args:
-    - ${{ inputs.input_dir }}
-    - ${{ inputs.access_key }}
-    - ${{ inputs.aws_access_key }}
-    - ${{ inputs.aws_secret_access_key }}
+  env:
+    INPUT_DIR: ${{ inputs.input_dir }}
+    ACCESS_KEY: ${{ inputs.access_key }}
+    AWS_ACCESS_KEY: ${{ inputs.aws_access_key }}
+    AWS_SECRET_ACCESS_KEY: ${{ inputs.aws_secret_access_key }}
