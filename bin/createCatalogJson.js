@@ -1,8 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-// ディレクトリのパスを引数から取得
-const directoryPath = process.argv[2];
+// ディレクトリのパス
+const INPUT_DIR = process.argv[2];
+
+// ファイル名から拡張子を除いた名前を取得する関数
+function getFileNameWithoutExtension(fileName) {
+  return path.basename(fileName, path.extname(fileName));
+}
+
+// 相対パスを取得する関数
+function getRelativePath(fullPath) {
+  return fullPath.substring(INPUT_DIR.length + 1);
+}
 
 // catalog.jsonを生成する関数
 function createCatalogJson(dirPath) {
@@ -14,18 +24,19 @@ function createCatalogJson(dirPath) {
       // ディレクトリの場合
       const category = {
         type: "Category",
-        id: file.name,
+        id: getRelativePath(path.join(dirPath, file.name)),
         name: file.name,
         items: createCatalogJson(path.join(dirPath, file.name)) // 再帰的に処理
       };
       items.push(category);
     } else {
       // ファイルの場合
+      const fileNameWithoutExt = getFileNameWithoutExtension(file.name);
       const dataItem = {
         type: "DataItem",
-        id: path.join(dirPath, file.name),
-        name: path.basename(file.name, path.extname(file.name)),
-        class: path.basename(file.name, path.extname(file.name)),
+        id: getRelativePath(path.join(dirPath, file.name)),
+        name: fileNameWithoutExt,
+        class: fileNameWithoutExt,
         metadata: {}
       };
       items.push(dataItem);
@@ -36,5 +47,5 @@ function createCatalogJson(dirPath) {
 }
 
 // catalog.jsonを生成して保存
-const catalog = createCatalogJson(directoryPath);
+const catalog = createCatalogJson(INPUT_DIR);
 fs.writeFileSync('catalog.json', JSON.stringify(catalog, null, 2));
