@@ -14,7 +14,7 @@ node ./bin/excel2geojson.js $INPUT_DIR
 
 ls $INPUT_DIR
 # geojson を 表示
-cat ./docs/aed-locations-xlsx.geojson | jq
+cat ./docs/aed-locations-csv.geojson | jq
 cat ./docs/aed-locations-xlsx.geojson | jq
 
 exit 0
