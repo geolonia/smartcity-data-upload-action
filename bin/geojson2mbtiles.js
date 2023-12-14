@@ -1,6 +1,7 @@
 const { exec: _exec } = require('child_process');
 const { promisify } = require('util');
-const { writeFile, readFile } = require('fs/promises');
+const { writeFile, readFile, mkdir, mkdtemp } = require('fs/promises');
+const fs = require('fs');
 const klaw = require('klaw');
 const csv2geojson = require('csv2geojson');
 const ConversionError = require('./error');
@@ -12,15 +13,17 @@ const inputDir = path.join(__dirname, '..', process.argv[2]);
 const geojsonToMbtiles = async (inputDir) => {
   const mbtilesPaths = [];
 
+  await mkdir("tmp", { recursive: true });
+  const tmpdir = await mkdtemp(path.join("tmp", "smart-city-data-"));
+
   for await (const file of klaw(inputDir, { depthLimit: -1 })) {
-    let csvData;
 
     if (file.path.endsWith(".geojson")) {
       const fileName = path.basename(file.path, '.geojson');
       console.log(`Processing ${fileName}...`);
 
       const geojsonPath = file.path;
-      const mbtilesPath = `${fileName}.mbtiles`;
+      const mbtilesPath = path.join(tmpdir, `${fileName}.mbtiles`);
 
       await exec([
         'tippecanoe',
@@ -41,6 +44,23 @@ const geojsonToMbtiles = async (inputDir) => {
 
   console.log(mbtilesPaths)
 
+  await exec([
+    'tile-join',
+    '--force',
+    '-o', 'smart-city-data-v1.mbtiles',
+    '--overzoom',
+    '--no-tile-size-limit',
+    '--tile-stats-values-limit=0',
+    ...mbtilesPaths,
+  ].map(x => `'${x}'`).join(" "));
+
+  console.log("Wrote smart-city-data-v1.mbtiles");
+
+  // tmpdir の中のファイルをlist する
+  const files = await fs.promises.readdir(tmpdir);
+  console.log(files);
+  
+  await rm(tmpdir, { recursive: true });
 }
 
 const main = async (inputDir) => {
