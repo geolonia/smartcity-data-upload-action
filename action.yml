@@ -2,20 +2,28 @@ name: 'Generate SmartCity vector tiles'
 description: 'generate pmtiles with tippeacanoe'
 author: 'Geolonia'
 inputs:
-  input_dir:
+  INPUT_DIR:
     description: 'Input directory.'
     required: true
     default: './'
 
-  city_id:
+  CITY_ID:
     description: 'ID to identify the City'
+    required: true
+
+  AWS_ACCESS_KEY_ID:
+    description: 'AWS_ACCESS_KEY_ID'
+    required: true
+
+  AWS_SECRET_ACCESS_KEY:
+    description: 'AWS_SECRET_ACCESS_KEY'
     required: true
 
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
-    INPUT_DIR: ${{ inputs.input_dir }}
-    CITY_ID: ${{ inputs.city_id }}
-    AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}  
-    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    INPUT_DIR: ${{ inputs.INPUT_DIR }}
+    CITY_ID: ${{ inputs.CITY_ID }}
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  

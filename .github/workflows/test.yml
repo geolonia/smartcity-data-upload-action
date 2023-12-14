@@ -18,5 +18,7 @@ jobs:
       - name: Run this action
         uses: geolonia/smartcity-data-upload-action@main
         with:
-          input_dir: './docs'
-          city_id: 'example-city'
+          INPUT_DIR: './docs'
+          CITY_ID: 'example-city'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
