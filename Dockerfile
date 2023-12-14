@@ -25,6 +25,15 @@ RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v1.11.1/go
     && chmod +x pmtiles \
     && mv pmtiles /usr/local/bin/
 
+# Pythonとpipをインストール
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# AWS CLIをインストール
+RUN pip3 install awscli
+
 # 現在のディレクトリを ディレクトリ構成を維持して / にコピー
 COPY . /app
 
