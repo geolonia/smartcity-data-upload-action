@@ -17,13 +17,18 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
       - name: 'Create SmartCity Vector Tile'
         uses: geolonia/smartcity-data-upload-action@main
         with:
           INPUT_DIR: './docs'
-          CITY_ID: 'example-city'
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          MUNICIPALITY_ID: 'example-city'
 ```
 
 ## 引数
@@ -31,17 +36,14 @@ jobs:
 #### `INPUT_DIR`
 - **必須** ベクトルタイルに変換する ファイルが置いてあるディレクトリのパス　（例: `./`）
 
-#### `CITY_ID`
+#### `MUNICIPALITY_ID`
 - **必須** ユニークな市区町村の値。ファイル名として使用されます。（例： `takamatsu-city`から `takamatsu-city.mbtiles`、`takamatsu-city.json`というファイルが生成されます）
 
-#### `AWS_ACCESS_KEY_ID`
-- **必須** Geoonia の AWSアクセスキー。GitHub Secrets 等を使用して指定してください。
+- AWSの認証情報を [aws-actions/configure-aws-credentials@v4](https://github.com/aws-actions/configure-aws-credentials)等を使用して設定下さい。
 
-#### `AWS_SECRET_ACCESS_KEY`
-- **必須** Geolonia の AWSシークレットアクセスキー。GitHub Secrets 等を使用して指定してください。
 
 ## 備考
-* PMTilesと、TileJSONのファイル名は、`CITY_ID` から生成されます。
+* PMTilesと、TileJSONのファイル名は、`MUNICIPALITY_ID` から生成されます。
 * ベクトルタイルのソースレイヤー名は、データ元になるファイル名を使用します。（例： `aed_locations.xlsx` → `aed_locations`）
 * ベクトルタイルを更新するには データ元のファイルを修正して、コミットすると元のデータが上書きされます。
 * Shape の入力にも将来的に対応予定です。

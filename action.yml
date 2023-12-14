@@ -7,7 +7,7 @@ inputs:
     required: true
     default: './'
 
-  CITY_ID:
+  MUNICIPALITY_ID:
     description: 'ID to identify the City'
     required: true
 
@@ -16,4 +16,4 @@ runs:
   image: 'Dockerfile'
   env:
     INPUT_DIR: ${{ inputs.INPUT_DIR }}
-    CITY_ID: ${{ inputs.CITY_ID }}
+    MUNICIPALITY_ID: ${{ inputs.MUNICIPALITY_ID }}
