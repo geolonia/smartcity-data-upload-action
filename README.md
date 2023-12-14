@@ -2,7 +2,7 @@
 
 [![.github/workflows/test.yml](https://github.com/geolonia/smartcity-data-upload-action/actions/workflows/test.yml/badge.svg)](https://github.com/geolonia/smartcity-data-upload-action/actions/workflows/test.yml)
 
-Excel / CSV / GeoJSON を一つの PMTiles 変換し TileJSON を生成し、Geolonia の S3 にデプロイする GitHub Actionです。
+Excel / CSV / GeoJSON から PMTiles と TileJSON を生成します。 生成結果を Geolonia の S3 にデプロイする GitHub Actionです。
 
 ## 使用例
 
