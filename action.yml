@@ -7,8 +7,8 @@ inputs:
     required: true
     default: './'
 
-  access_key:
-    description: 'Access key to identify the user.'
+  city_id:
+    description: 'ID to identify the City'
     required: true
 
   aws_access_key:
@@ -24,6 +24,6 @@ runs:
   image: 'Dockerfile'
   env:
     INPUT_DIR: ${{ inputs.input_dir }}
-    ACCESS_KEY: ${{ inputs.access_key }}
+    CITY_ID: ${{ inputs.city_id }}
     AWS_ACCESS_KEY: ${{ inputs.aws_access_key }}
     AWS_SECRET_ACCESS_KEY: ${{ inputs.aws_secret_access_key }}

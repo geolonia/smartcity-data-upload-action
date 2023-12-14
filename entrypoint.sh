@@ -6,12 +6,12 @@ npm install
 ls
 
 echo "INPUT_DIR: $INPUT_DIR"
-
-find  ./ -name "napi-v6-linux-glibc-arm64/";
+echo "CITY_ID: $CITY_ID"
 
 node ./bin/excel2geojson.js $INPUT_DIR
-node ./bin/geojson2mbtiles.js $INPUT_DIR
-node ./bin/createTilesJson.js ./smart-city-data-v1.mbtiles
+node ./bin/geojson2mbtiles.js $INPUT_DIR $CITY_ID
+node ./bin/createTilesJson.js ./$CITY_ID-v1.mbtiles
+pmtiles convert ./$CITY_ID-v1.mbtiles ./$CITY_ID-v1.pmtiles
 
 ls $INPUT_DIR
 ls

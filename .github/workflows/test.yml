@@ -14,7 +14,7 @@ jobs:
         uses: geolonia/smartcity-data-upload-action@main
         with:
           input_dir: './docs'
-          access_key: 'example-city'
+          city_id: 'example-city'
           aws_access_key: 'example-access-key'
           aws_secret_access_key: 'example-secret-access-key'
           
