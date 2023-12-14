@@ -37,11 +37,6 @@ const excelToGeoJson = async (inputDir) => {
 
         csv2geojson.csv2geojson(
           csvData,
-          {
-            latfield: 'lat',
-            lonfield: 'lng',
-            delimiter: ','
-          },
           async (err, geojson) => {
             await writeFile(geoJsonPath, JSON.stringify(geojson));
           });
