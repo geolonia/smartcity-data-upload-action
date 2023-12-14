@@ -11,7 +11,21 @@ function getFileNameWithoutExtension(fileName) {
 
 // 相対パスを取得する関数
 function getRelativePath(fullPath) {
-  return fullPath.substring(INPUT_DIR.length + 1);
+
+  let input_dir = INPUT_DIR;
+
+  // INPUT_DIR に、./ を含む場合は削除する
+  if (input_dir.indexOf("./") === 0) {
+    input_dir = input_dir.substring(2);
+  }
+  const index = fullPath.indexOf(input_dir);
+
+  if (index === -1) {
+    throw new Error("特定の文字列が見つかりませんでした。");
+  } else {
+    // markerの後ろの文字列を取得する
+    return fullPath.substring(index + input_dir.length + 1);
+  }
 }
 
 // catalog.jsonを生成する関数
@@ -28,18 +42,29 @@ function createCatalogJson(dirPath) {
         name: file.name,
         items: createCatalogJson(path.join(dirPath, file.name)) // 再帰的に処理
       };
-      items.push(category);
+
+      // 同じ id が存在する場合は、スキップする
+      const isExist = items.some(item => item.id === category.id);
+      if (!isExist) {
+        items.push(category);
+      }
+
     } else {
       // ファイルの場合
       const fileNameWithoutExt = getFileNameWithoutExtension(file.name);
       const dataItem = {
         type: "DataItem",
-        id: getRelativePath(path.join(dirPath, file.name)),
+        id: getRelativePath(path.join(dirPath, fileNameWithoutExt)),
         name: fileNameWithoutExt,
         class: fileNameWithoutExt,
         metadata: {}
       };
-      items.push(dataItem);
+
+      // 同じ id が存在する場合は、スキップする
+      const isExist = items.some(item => item.id === dataItem.id);
+      if (!isExist) {
+        items.push(dataItem);
+      }
     }
   });
 
