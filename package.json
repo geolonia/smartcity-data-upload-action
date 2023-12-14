@@ -2,10 +2,7 @@
   "name": "smartcity-data-upload-action",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "bin": {
-    "smartcity-data-upload-action": "bin/excel2csv.js"
-  },
+  "main": "bin/excel2geojson.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

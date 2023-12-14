@@ -3,7 +3,8 @@ const { writeFile, readFile } = require('fs/promises');
 const klaw = require('klaw');
 const csv2geojson = require('csv2geojson');
 const ConversionError = require('./error');
-const inputDir = process.argv[2];
+const path = require('path');
+const inputDir = path.join(__dirname, '..', process.argv[2]);
 
 const excelToGeoJson = async (inputDir) => {
   const promises = [];
@@ -12,7 +13,7 @@ const excelToGeoJson = async (inputDir) => {
     let csvData;
 
     if (file.path.endsWith(".xlsx")) {
-      const excelPath = file.path;
+      const excelPath = file.path;      
       try {
         csvData = await excel2csv(excelPath);
       } catch (err) {
@@ -20,6 +21,9 @@ const excelToGeoJson = async (inputDir) => {
         if (err.message === "FILE_ENDED") {
           throw new ConversionError("fileEnded", excelPath);
         }
+
+        console.log(err);
+        
         throw new ConversionError("excelToGeoJson", excelPath);
       }
     } else if (file.path.endsWith(".csv")) {
@@ -27,17 +31,12 @@ const excelToGeoJson = async (inputDir) => {
     }
 
     if (csvData) {
-      const geoJsonPath = file.path.replace(/.csv$|.xlsx$/, '.json');
+      const geoJsonPath = file.path.replace(/.csv$|.xlsx$/, '.geojson');
 
       try {
 
         csv2geojson.csv2geojson(
           csvData,
-          {
-            latfield: 'lat',
-            lonfield: 'lng',
-            delimiter: ','
-          },
           async (err, geojson) => {
             await writeFile(geoJsonPath, JSON.stringify(geojson));
           });

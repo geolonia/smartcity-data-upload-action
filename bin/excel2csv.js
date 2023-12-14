@@ -1,4 +1,4 @@
-const XLSX = require('./xlsx.full.min');
+const XLSX = require('xlsx');
 
 const excel2csv = async (excelPath) => {
 
