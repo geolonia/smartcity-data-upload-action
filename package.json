@@ -14,6 +14,8 @@
   "dependencies": {
     "csv2geojson": "^5.1.2",
     "klaw": "^4.1.0",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.6",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   }
 }
