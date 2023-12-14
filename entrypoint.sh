@@ -4,10 +4,12 @@ set -e
 npm install
 ls
 
-node ./bin/excel2geojson.js $input_dir
-node ./bin/geojson2mbtiles.js $input_dir
+echo "INPUT_DIR: $INPUT_DIR"
 
-ls $input_dir
+node ./bin/excel2geojson.js $INPUT_DIR
+node ./bin/geojson2mbtiles.js $INPUT_DIR
+
+ls $INPUT_DIR
 ls
 
 

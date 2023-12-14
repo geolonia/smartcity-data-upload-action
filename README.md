@@ -5,6 +5,7 @@
 # ローカルで実行する
 
 ```
-$ docker build -t geolonia/smartcity-data-upload-action .
-$ docker run --env-file ./.env.test geolonia/smartcity-data-upload-action
+$ cd geolonia/smartcity-data-upload-action # このリポジトリのルートディレクトリに移動
+$ npm install
+$ npm run docker:test # build と run が実行される
 ```
