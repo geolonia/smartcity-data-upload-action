@@ -45,14 +45,14 @@ const geojsonToMbtiles = async (inputDir) => {
   await exec([
     'tile-join',
     '--force',
-    '-o', `${MUNICIPALITY_ID}.mbtiles`,
+    '-o', `${MUNICIPALITY_ID}_csv.mbtiles`,
     '--overzoom',
     '--no-tile-size-limit',
     '--tile-stats-values-limit=0',
     ...mbtilesPaths,
   ].map(x => `'${x}'`).join(" "));
 
-  console.log(`Wrote ${MUNICIPALITY_ID}.mbtiles`);
+  console.log(`Wrote ${MUNICIPALITY_ID}_csv.mbtiles`);
 
   // tmpdir の中のファイルをlist する
   const files = await fs.promises.readdir(tmpdir);
