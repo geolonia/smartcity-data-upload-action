@@ -16,8 +16,12 @@ bin/merge_mbtiles.sh $MUNICIPALITY_ID
 
 # PMTiles に変換
 pmtiles convert ./$MUNICIPALITY_ID.mbtiles ./$MUNICIPALITY_ID.pmtiles
+
+# CatalogJSON を作成
+node ./bin/createCatalogJson.js $INPUT_DIR
+
 # TilesJSON を作成
-node ./bin/createTilesJson.js ./$MUNICIPALITY_ID.mbtiles
+node ./bin/createTilesJson.js ./$MUNICIPALITY_ID.mbtiles ./catalog.json
 
 aws s3 cp ./$MUNICIPALITY_ID.pmtiles s3://smartcity-data-upload-action-dev
 aws s3 cp ./$MUNICIPALITY_ID.json s3://smartcity-data-upload-action-dev

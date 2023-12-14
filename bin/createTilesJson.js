@@ -5,6 +5,7 @@ const { open } = require("sqlite");
 
 async function main() {
   const mbtilesPath = process.argv[2];
+  const catalogPath = process.argv[3];
 
   const basename = path.basename(mbtilesPath, ".mbtiles");
   const db = await open({
@@ -12,8 +13,23 @@ async function main() {
     driver: sqlite3.Database,
   });
 
+  const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf-8"));
+
+  const walker = (obj) => {
+    if (obj.type === "DataItem") {
+      delete obj['customDataSource'];
+      delete obj['geojsonEndpoint'];
+    } else if (obj.type === "Category") {
+      obj.items = obj.items.map(walker);
+    }
+    return obj;
+  }
+
+  const fixedCatalog = catalog.map(walker);
+
   const {value} = await db.get("SELECT value FROM metadata WHERE name = 'json'");
   const theJSON = JSON.parse(value);
+  theJSON.catalog = fixedCatalog;
   delete theJSON['tilestats'];
   
   await db.run(
