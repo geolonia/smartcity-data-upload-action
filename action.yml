@@ -11,19 +11,11 @@ inputs:
     description: 'ID to identify the City'
     required: true
 
-  aws_access_key:
-    description: 'AWS_ACCESS_KEY'
-    required: true
-
-  aws_secret_access_key:
-    description: 'AWS_SECRET_ACCESS_KEY'
-    required: true
-
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
     INPUT_DIR: ${{ inputs.input_dir }}
     CITY_ID: ${{ inputs.city_id }}
-    AWS_ACCESS_KEY: ${{ inputs.aws_access_key }}
-    AWS_SECRET_ACCESS_KEY: ${{ inputs.aws_secret_access_key }}
+    AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}  
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
