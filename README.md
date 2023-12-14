@@ -4,7 +4,7 @@
 
 Excel / CSV / GeoJSON を一つの PMTiles 変換し TileJSON を生成し、Geolonia の S3 にデプロイする GitHub Actionです。
 
-## Example usage
+## 使用例
 
 ```yaml
 name: Build and Deploy
