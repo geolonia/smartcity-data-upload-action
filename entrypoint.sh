@@ -12,6 +12,9 @@ node ./bin/excel2geojson.js $INPUT_DIR
 node ./bin/geojson2mbtiles.js $INPUT_DIR $CITY_ID
 node ./bin/createTilesJson.js ./$CITY_ID-v1.mbtiles
 
+mkdir build
+mv ./$CITY_ID-v1.mbtiles ./build/$CITY_ID-v1.mbtiles
+
 # pmtiles convert ./$CITY_ID-v1.mbtiles ./$CITY_ID-v1.pmtiles
 
 ls $INPUT_DIR
