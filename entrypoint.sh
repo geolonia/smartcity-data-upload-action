@@ -8,6 +8,6 @@ node ./bin/geojson2mbtiles.js $INPUT_DIR $CITY_ID
 node ./bin/createTilesJson.js ./$CITY_ID-v1.mbtiles
 
 pmtiles convert ./$CITY_ID-v1.mbtiles ./$CITY_ID-v1.pmtiles
-pmtiles upload ./$CITY_ID-v1.pmtiles $CITY_ID-v1.pmtiles --bucket=s3://smartcity-data-upload-action-dev
+pmtiles upload ./$CITY_ID-v1.pmtiles $CITY_ID-v1.pmtiles --bucket=s3://smartcity-data-upload-action-dev?region=ap-northeast-1
 
 exit 0
