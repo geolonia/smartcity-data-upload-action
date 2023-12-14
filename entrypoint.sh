@@ -16,6 +16,10 @@ bin/merge_mbtiles.sh $MUNICIPALITY_ID
 
 # PMTiles に変換
 pmtiles convert ./$MUNICIPALITY_ID.mbtiles ./$MUNICIPALITY_ID.pmtiles
+
+node ./bin/createCatalogJson.js $INPUT_DIR
+cat ./catalog.json | jq 
+
 # TilesJSON を作成
 node ./bin/createTilesJson.js ./$MUNICIPALITY_ID.mbtiles
 
