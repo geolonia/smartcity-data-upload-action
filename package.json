@@ -5,7 +5,7 @@
   "main": "bin/excel2geojson.js",
   "scripts": {
     "docker:build": "docker build -t geolonia/smartcity-data-upload-action .",
-    "docker:test": "npm run docker:build && docker run --env-file ./.env.test geolonia/smartcity-data-upload-action",
+    "docker:test": "npm run docker:build && docker run --env-file ./.env.test geolonia/smartcity-data-upload-action && docker cp $(docker ps -lq):app/example-city-v1.mbtiles ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
