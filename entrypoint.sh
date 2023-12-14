@@ -13,5 +13,6 @@ node ./bin/excel2geojson.js $INPUT_DIR
 node ./bin/geojson2mbtiles.js $INPUT_DIR
 
 ls $INPUT_DIR
+ls
 
 exit 0
