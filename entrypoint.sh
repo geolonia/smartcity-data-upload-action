@@ -8,7 +8,7 @@ npm install
 # Excel/CSV を GeoJSON に変換
 node ./bin/excel2geojson.js $INPUT_DIR
 # GeoJSON を mbtiles に変換
-node ./bin/geojson2mbtiles.js $INPUT_DIR $MUNICIPALITY_ID
+node ./bin/geojson2mbtiles.js $INPUT_DIR
 # Shapefile を mbtiles に変換
 bin/shape2mbtiles.sh $INPUT_DIR
 # mbtiles を統合

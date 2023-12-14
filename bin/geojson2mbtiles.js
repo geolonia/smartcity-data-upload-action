@@ -6,13 +6,12 @@ const path = require('path');
 const exec = promisify(_exec);
 
 const inputDir = path.join(__dirname, '..', process.argv[2]);
-const MUNICIPALITY_ID = process.argv[3];
 
 const geojsonToMbtiles = async (inputDir) => {
   const mbtilesPaths = [];
 
   await fs.promises.mkdir("tmp", { recursive: true });
-  const tmpdir = await fs.promises.mkdtemp(path.join("tmp", `${MUNICIPALITY_ID}-`));
+  const tmpdir = await fs.promises.mkdtemp(path.join("tmp", `smart-city-`));
 
   for await (const file of klaw(inputDir, { depthLimit: -1 })) {
 
@@ -45,14 +44,14 @@ const geojsonToMbtiles = async (inputDir) => {
   await exec([
     'tile-join',
     '--force',
-    '-o', `${MUNICIPALITY_ID}_csv.mbtiles`,
+    '-o', `smartcity_csv.mbtiles`,
     '--overzoom',
     '--no-tile-size-limit',
     '--tile-stats-values-limit=0',
     ...mbtilesPaths,
   ].map(x => `'${x}'`).join(" "));
 
-  console.log(`Wrote ${MUNICIPALITY_ID}_csv.mbtiles`);
+  console.log(`Wrote smartcity_csv.mbtiles`);
 
   // tmpdir の中のファイルをlist する
   const files = await fs.promises.readdir(tmpdir);
