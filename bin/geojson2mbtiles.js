@@ -1,10 +1,7 @@
 const { exec: _exec } = require('child_process');
 const { promisify } = require('util');
-const { writeFile, readFile, mkdir, mkdtemp } = require('fs/promises');
 const fs = require('fs');
 const klaw = require('klaw');
-const csv2geojson = require('csv2geojson');
-const ConversionError = require('./error');
 const path = require('path');
 const exec = promisify(_exec);
 
@@ -13,8 +10,8 @@ const inputDir = path.join(__dirname, '..', process.argv[2]);
 const geojsonToMbtiles = async (inputDir) => {
   const mbtilesPaths = [];
 
-  await mkdir("tmp", { recursive: true });
-  const tmpdir = await mkdtemp(path.join("tmp", "smart-city-data-"));
+  await fs.promises.mkdir("tmp", { recursive: true });
+  const tmpdir = await fs.promises.mkdtemp(path.join("tmp", "smart-city-data-"));
 
   for await (const file of klaw(inputDir, { depthLimit: -1 })) {
 
@@ -60,7 +57,7 @@ const geojsonToMbtiles = async (inputDir) => {
   const files = await fs.promises.readdir(tmpdir);
   console.log(files);
   
-  await rm(tmpdir, { recursive: true });
+  await fs.promises.rm(tmpdir, { recursive: true });
 }
 
 const main = async (inputDir) => {
