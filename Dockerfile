@@ -39,6 +39,6 @@ COPY package-lock.json /package-lock.json
 COPY entrypoint.sh /entrypoint.sh
 
 # 現在のディレクトリを ディレクトリ構成を維持して / にコピー
-# COPY . /app
+COPY . /
 
 ENTRYPOINT ["/entrypoint.sh"]
