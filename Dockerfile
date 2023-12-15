@@ -35,6 +35,10 @@ ENV PATH="/opt/venv/bin:$PATH"
 # AWS CLIを仮想環境にインストール
 RUN pip3 install awscli
 
+COPY bin/ /app/bin
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
 # 現在のディレクトリを ディレクトリ構成を維持して / にコピー
 COPY . /app
 
