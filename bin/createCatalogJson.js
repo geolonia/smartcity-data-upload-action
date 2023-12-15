@@ -3,6 +3,7 @@ const path = require('path');
 
 // ディレクトリのパス
 const INPUT_DIR = process.argv[2];
+const ALLOWED_EXTENSIONS = ['.geojson', '.xlsx', '.csv', '.shp', '.shx', '.dbf', '.prj', '.sbn', '.sbx'];
 
 // ファイル名から拡張子を除いた名前を取得する関数
 function getFileNameWithoutExtension(fileName) {
@@ -22,6 +23,12 @@ function createCatalogJson(dirPath) {
 
   files.forEach(file => {
     if (file.isDirectory()) {
+
+      // 隠しディレクトリ（.git や .github 等）はスキップする
+      if (file.name.startsWith('.')) {
+        return;
+      }
+
       // ディレクトリの場合
       const category = {
         type: "Category",
@@ -37,6 +44,13 @@ function createCatalogJson(dirPath) {
       }
 
     } else {
+
+      // 許可された拡張子以外はスキップする
+      const ext = path.extname(file.name);
+      if (!ALLOWED_EXTENSIONS.includes(ext)) {
+        return;
+      }
+
       // ファイルの場合
       const fileNameWithoutExt = getFileNameWithoutExtension(file.name);
       const dataItem = {
