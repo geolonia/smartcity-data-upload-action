@@ -28,7 +28,7 @@ jobs:
         uses: geolonia/smartcity-data-upload-action@main
         with:
           INPUT_DIR: './docs'
-          MUNICIPALITY_CODE: 'example-city'
+          MUNICIPALITY_CODE: '37201'
 ```
 
 ## 引数
