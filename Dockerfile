@@ -38,6 +38,7 @@ RUN pip3 install awscli
 COPY bin/ /app/bin
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
+COPY entrypoint.sh /app/entrypoint.sh
 
 # 現在のディレクトリを ディレクトリ構成を維持して / にコピー
 # COPY . /app
