@@ -3,6 +3,8 @@ set -ex
 
 export AWS_DEFAULT_REGION=ap-northeast-1
 
+ls
+
 npm install
 
 # Excel/CSV を GeoJSON に変換
