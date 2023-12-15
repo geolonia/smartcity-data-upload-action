@@ -28,7 +28,7 @@ jobs:
         uses: geolonia/smartcity-data-upload-action@main
         with:
           INPUT_DIR: './docs'
-          MUNICIPALITY_ID: 'example-city'
+          MUNICIPALITY_CODE: 'example-city'
 ```
 
 ## 引数
@@ -36,14 +36,14 @@ jobs:
 #### `INPUT_DIR`
 - **必須** ベクトルタイルに変換する ファイルが置いてあるディレクトリのパス　（例: `./`）
 
-#### `MUNICIPALITY_ID`
-- **必須** ユニークな市区町村の値。ファイル名として使用されます。（例： `takamatsu-city`から `takamatsu-city.mbtiles`、`takamatsu-city.json`というファイルが生成されます）
+#### `MUNICIPALITY_CODE`
+- **必須** 全国地方公共団体コード (5桁) （例: `37201`）
 
 
 
 ## 備考
 * AWSの認証情報は [aws-actions/configure-aws-credentials@v4](https://github.com/aws-actions/configure-aws-credentials) 等を使用して設定下さい。
-* PMTilesと、TileJSONのファイル名は、`MUNICIPALITY_ID` から生成されます。
+* PMTilesと、TileJSONのファイル名は、`MUNICIPALITY_CODE` から生成されます。
 * ベクトルタイルのソースレイヤー名は、データ元になるファイル名を使用します。（例： `AED設置場所.xlsx` → `AED設置場所`）
 * ベクトルタイルを更新するには データ元のファイルを修正して、コミットすると元のデータが上書きされます。
 * Shape の入力にも将来的に対応予定です。
