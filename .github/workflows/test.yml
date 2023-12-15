@@ -31,3 +31,4 @@ jobs:
         with:
           INPUT_DIR: './docs'
           MUNICIPALITY_CODE: '37201'
+          AWS_S3_BUCKET_NAME: 'smartcity-data-upload-action-dev'

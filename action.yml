@@ -11,9 +11,15 @@ inputs:
     description: '全国地方公共団体コード (5桁)'
     required: true
 
+  DEPLOY_S3_BUCKET:
+    description: 'デプロイ先の AWS S3 バケツ'
+    required: true
+    default: 'smartcitystandaloneinfra-smartcitystandaloneinfra-w7czadiwetse'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
     INPUT_DIR: ${{ inputs.INPUT_DIR }}
     MUNICIPALITY_CODE: ${{ inputs.MUNICIPALITY_CODE }}
+    DEPLOY_S3_BUCKET: ${{ inputs.DEPLOY_S3_BUCKET }}
