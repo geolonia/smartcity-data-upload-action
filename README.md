@@ -44,7 +44,7 @@ jobs:
 ## 備考
 * AWSの認証情報は [aws-actions/configure-aws-credentials@v4](https://github.com/aws-actions/configure-aws-credentials) 等を使用して設定下さい。
 * PMTilesと、TileJSONのファイル名は、`MUNICIPALITY_ID` から生成されます。
-* ベクトルタイルのソースレイヤー名は、データ元になるファイル名を使用します。（例： `aed_locations.xlsx` → `aed_locations`）
+* ベクトルタイルのソースレイヤー名は、データ元になるファイル名を使用します。（例： `AED設置場所.xlsx` → `AED設置場所`）
 * ベクトルタイルを更新するには データ元のファイルを修正して、コミットすると元のデータが上書きされます。
 * Shape の入力にも将来的に対応予定です。
 
