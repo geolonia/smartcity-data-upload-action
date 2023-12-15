@@ -1,8 +1,6 @@
 # 基本となるイメージ
 FROM node:latest
 
-WORKDIR /app
-
 # 必要なパッケージのインストール
 # 一度に実行してキャッシュを効率的に利用
 RUN apt-get update && apt-get install -y \
@@ -35,12 +33,12 @@ ENV PATH="/opt/venv/bin:$PATH"
 # AWS CLIを仮想環境にインストール
 RUN pip3 install awscli
 
-COPY bin/ /app/bin
-COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
-COPY entrypoint.sh /app/entrypoint.sh
+COPY bin/ /bin
+COPY package.json /package.json
+COPY package-lock.json /package-lock.json
+COPY entrypoint.sh /entrypoint.sh
 
 # 現在のディレクトリを ディレクトリ構成を維持して / にコピー
 # COPY . /app
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
