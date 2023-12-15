@@ -10,6 +10,10 @@ inputs:
   MUNICIPALITY_ID:
     description: 'ID to identify the City'
     required: true
+  
+  MUNICIPALITY_CODE:
+    description: '全国地方公共団体コード (5桁)'
+    required: true
 
 runs:
   using: 'docker'
@@ -17,3 +21,4 @@ runs:
   env:
     INPUT_DIR: ${{ inputs.INPUT_DIR }}
     MUNICIPALITY_ID: ${{ inputs.MUNICIPALITY_ID }}
+    MUNICIPALITY_CODE: ${{ inputs.MUNICIPALITY_CODE }}
