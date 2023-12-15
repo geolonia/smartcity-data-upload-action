@@ -3,7 +3,11 @@ set -ex
 
 export AWS_DEFAULT_REGION=ap-northeast-1
 
+# この GitHub Action が実行されている workspace は /github/workspace にマウントされている。
 INPUT_DIR_PATH=/github/workspace/$INPUT_DIR
+
+# GitHub Action で作られた Docker の workspace は /action/workspace にイメージに保存されている。
+cd /action/workspace
 
 # Excel/CSV を GeoJSON に変換
 node ./bin/excel2geojson.js $INPUT_DIR_PATH
