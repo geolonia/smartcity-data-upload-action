@@ -9,3 +9,4 @@ tile-join \
   -o ./$MUNICIPALITY_ID.mbtiles \
   ./smartcity_shape.mbtiles \
   ./smartcity_csv.mbtiles \
+  ./smartcity_municipality_mask.mbtiles
