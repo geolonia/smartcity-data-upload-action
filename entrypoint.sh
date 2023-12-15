@@ -18,22 +18,22 @@ bin/shape2mbtiles.sh $INPUT_DIR_PATH
 # 市区町村の形マスクをダウンロードし、mbtiles に変換
 bin/mask2mbtiles.sh $MUNICIPALITY_CODE
 # mbtiles を統合
-bin/merge_mbtiles.sh $MUNICIPALITY_ID
+bin/merge_mbtiles.sh $MUNICIPALITY_CODE
 
 # CatalogJSON を作成
 node ./bin/createCatalogJson.js $INPUT_DIR_PATH
 
 # TilesJSON を作成
-node ./bin/createTilesJson.js ./$MUNICIPALITY_ID.mbtiles ./catalog.json
+node ./bin/createTilesJson.js ./$MUNICIPALITY_CODE.mbtiles ./catalog.json
 
 # PMTiles に変換
-pmtiles convert ./$MUNICIPALITY_ID.mbtiles ./$MUNICIPALITY_ID.pmtiles
+pmtiles convert ./$MUNICIPALITY_CODE.mbtiles ./$MUNICIPALITY_CODE.pmtiles
 
-cp ./$MUNICIPALITY_ID.pmtiles /github/workspace
-cp ./$MUNICIPALITY_ID.json /github/workspace
+cp ./$MUNICIPALITY_CODE.pmtiles /github/workspace
+cp ./$MUNICIPALITY_CODE.json /github/workspace
 
-aws s3 cp ./$MUNICIPALITY_ID.pmtiles s3://smartcity-data-upload-action-dev
-aws s3 cp ./$MUNICIPALITY_ID.json s3://smartcity-data-upload-action-dev
+aws s3 cp ./$MUNICIPALITY_CODE.pmtiles s3://smartcity-data-upload-action-dev
+aws s3 cp ./$MUNICIPALITY_CODE.json s3://smartcity-data-upload-action-dev
 
 # 終了ステータスをチェック
 if [ $? -eq 0 ]; then
