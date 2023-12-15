@@ -5,7 +5,7 @@ const klaw = require('klaw');
 const path = require('path');
 const exec = promisify(_exec);
 
-const inputDir = path.join(__dirname, '..', process.argv[2]);
+const inputDir = process.argv[2];
 
 const geojsonToMbtiles = async (inputDir) => {
   const mbtilesPaths = [];
@@ -56,7 +56,7 @@ const geojsonToMbtiles = async (inputDir) => {
   // tmpdir の中のファイルをlist する
   const files = await fs.promises.readdir(tmpdir);
   console.log(files);
-  
+
   await fs.promises.rm(tmpdir, { recursive: true });
 }
 

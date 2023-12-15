@@ -1,9 +1,9 @@
 FROM node:20
 
-WORKDIR /app
+WORKDIR /action/workspace
 
 # 現在のディレクトリを ディレクトリ構成を維持して / にコピー
-COPY . /app
+COPY . .
 
 # 必要なパッケージのインストール
 # 一度に実行してキャッシュを効率的に利用
@@ -36,8 +36,13 @@ ARG GO_PMTILES_VERSION=1.11.1
 
 # go-pmtiles のインストール
 RUN curl -L https://github.com/protomaps/go-pmtiles/releases/download/v${GO_PMTILES_VERSION}/go-pmtiles_${GO_PMTILES_VERSION}_Linux_x86_64.tar.gz -o go-pmtiles.tar.gz \
-    && tar -xzvf go-pmtiles.tar.gz \
+    && mkdir -p go-pmtiles && cd go-pmtiles \
+    && tar -xzvf ../go-pmtiles.tar.gz \
     && chmod +x pmtiles \
     && mv pmtiles /usr/local/bin/
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+# node イメージの ENTRYPOINT をクリアする
+ENTRYPOINT []
+
+# entrypoint.sh を実行する
+CMD ["/action/workspace/entrypoint.sh"]

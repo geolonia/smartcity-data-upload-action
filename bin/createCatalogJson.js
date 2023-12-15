@@ -11,21 +11,8 @@ function getFileNameWithoutExtension(fileName) {
 
 // 相対パスを取得する関数
 function getRelativePath(fullPath) {
-
   let input_dir = INPUT_DIR;
-
-  // INPUT_DIR に、./ を含む場合は削除する
-  if (input_dir.indexOf("./") === 0) {
-    input_dir = input_dir.substring(2);
-  }
-  const index = fullPath.indexOf(input_dir);
-
-  if (index === -1) {
-    throw new Error("特定の文字列が見つかりませんでした。");
-  } else {
-    // markerの後ろの文字列を取得する
-    return fullPath.substring(index + input_dir.length + 1);
-  }
+  return path.relative(input_dir, fullPath);
 }
 
 // catalog.jsonを生成する関数

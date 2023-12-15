@@ -4,7 +4,7 @@ const klaw = require('klaw');
 const csv2geojson = require('csv2geojson');
 const ConversionError = require('./error');
 const path = require('path');
-const inputDir = path.join(__dirname, '..', process.argv[2]);
+const inputDir = process.argv[2];
 
 const excelToGeoJson = async (inputDir) => {
   const promises = [];
@@ -13,7 +13,7 @@ const excelToGeoJson = async (inputDir) => {
     let csvData;
 
     if (file.path.endsWith(".xlsx")) {
-      const excelPath = file.path;      
+      const excelPath = file.path;
       try {
         csvData = await excel2csv(excelPath);
       } catch (err) {
@@ -23,7 +23,7 @@ const excelToGeoJson = async (inputDir) => {
         }
 
         console.log(err);
-        
+
         throw new ConversionError("excelToGeoJson", excelPath);
       }
     } else if (file.path.endsWith(".csv")) {

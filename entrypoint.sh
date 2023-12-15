@@ -3,35 +3,21 @@ set -ex
 
 export AWS_DEFAULT_REGION=ap-northeast-1
 
-cd /github/workspace
-
-ls
-ls /
-ls /app
-
-pwd
-
-TMPDIR=$(mktemp -d)
-cp -r ./* "$TMPDIR"
-cd "$TMPDIR"
-
-ls
-ls /
-ls /app
+INPUT_DIR_PATH=/github/workspace/$INPUT_DIR
 
 # Excel/CSV を GeoJSON に変換
-node ./bin/excel2geojson.js $INPUT_DIR
+node ./bin/excel2geojson.js $INPUT_DIR_PATH
 # GeoJSON を mbtiles に変換
-node ./bin/geojson2mbtiles.js $INPUT_DIR
+node ./bin/geojson2mbtiles.js $INPUT_DIR_PATH
 # Shapefile を mbtiles に変換
-bin/shape2mbtiles.sh $INPUT_DIR
+bin/shape2mbtiles.sh $INPUT_DIR_PATH
 # 市区町村の形マスクをダウンロードし、mbtiles に変換
 bin/mask2mbtiles.sh $MUNICIPALITY_CODE
 # mbtiles を統合
 bin/merge_mbtiles.sh $MUNICIPALITY_ID
 
 # CatalogJSON を作成
-node ./bin/createCatalogJson.js $INPUT_DIR
+node ./bin/createCatalogJson.js $INPUT_DIR_PATH
 
 # TilesJSON を作成
 node ./bin/createTilesJson.js ./$MUNICIPALITY_ID.mbtiles ./catalog.json
