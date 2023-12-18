@@ -1,5 +1,4 @@
-#!/bin/sh
-set -ex
+#!/bin/bash -e
 
 export AWS_DEFAULT_REGION=ap-northeast-1
 
