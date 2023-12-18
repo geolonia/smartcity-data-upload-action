@@ -32,15 +32,14 @@ pmtiles convert ./$MUNICIPALITY_CODE.mbtiles ./$MUNICIPALITY_CODE.pmtiles
 cp ./$MUNICIPALITY_CODE.pmtiles /github/workspace
 cp ./$MUNICIPALITY_CODE.json /github/workspace
 
-PREFIX="data/repo:$GITHUB_REPOSITORY:ref:$GITHUB_REF/"
-aws s3 cp ./$MUNICIPALITY_CODE.pmtiles s3://$DEPLOY_S3_BUCKET/$PREFIX
-aws s3 cp ./$MUNICIPALITY_CODE.json s3://$DEPLOY_S3_BUCKET/$PREFIX
+PREFIX="/"
 
-echo "Uploaded to $PREFIX/$MUNICIPALITY_CODE.pmtiles"
-
-# 終了ステータスをチェック
-if [ $? -eq 0 ]; then
-    echo "Upload successful."
-else
-    echo "Upload failed."
+if [[ "$DEPLOY_S3_BUCKET" == "smartcitystandaloneinfra-smartcitystandaloneinfra-w7czadiwetse" ]]; then
+  PREFIX="data/repo:$GITHUB_REPOSITORY:ref:$GITHUB_REF/"
+  echo "Uploading to https://d1ejkd31ehnyp8.cloudfront.net/$PREFIX/$MUNICIPALITY_CODE.pmtiles"
 fi
+
+aws s3 cp ./$MUNICIPALITY_CODE.pmtiles s3://${DEPLOY_S3_BUCKET}${PREFIX}
+aws s3 cp ./$MUNICIPALITY_CODE.json s3://${DEPLOY_S3_BUCKET}${PREFIX}
+
+echo "Upload successful."
