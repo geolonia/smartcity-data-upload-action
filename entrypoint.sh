@@ -32,8 +32,11 @@ pmtiles convert ./$MUNICIPALITY_CODE.mbtiles ./$MUNICIPALITY_CODE.pmtiles
 cp ./$MUNICIPALITY_CODE.pmtiles /github/workspace
 cp ./$MUNICIPALITY_CODE.json /github/workspace
 
-aws s3 cp ./$MUNICIPALITY_CODE.pmtiles s3://$DEPLOY_S3_BUCKET
-aws s3 cp ./$MUNICIPALITY_CODE.json s3://$DEPLOY_S3_BUCKET
+PREFIX="data/repo:$GITHUB_REPOSITORY:ref:$GITHUB_REF/"
+aws s3 cp ./$MUNICIPALITY_CODE.pmtiles s3://$DEPLOY_S3_BUCKET/$PREFIX
+aws s3 cp ./$MUNICIPALITY_CODE.json s3://$DEPLOY_S3_BUCKET/$PREFIX
+
+echo "Uploaded to $PREFIX/$MUNICIPALITY_CODE.pmtiles"
 
 # 終了ステータスをチェック
 if [ $? -eq 0 ]; then
