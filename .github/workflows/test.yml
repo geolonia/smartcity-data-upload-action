@@ -35,3 +35,8 @@ jobs:
         with:
           INPUT_DIR: './docs'
           MUNICIPALITY_CODE: '37201'
+
+      - name: Smartmap
+        run:
+          echo "下記のURLでプレビューを開けます"
+          echo https://geolonia.github.io/smartcity-smartmap/#/?endpointUrl=${{ steps.upload-action.outputs.pmtiles_url }}
