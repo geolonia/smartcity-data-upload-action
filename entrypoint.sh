@@ -35,7 +35,9 @@ PREFIX="/"
 
 if [[ "$DEPLOY_S3_BUCKET" == "smartcitystandaloneinfra-smartcitystandaloneinfra-w7czadiwetse" ]]; then
   PREFIX="/data/repo:$GITHUB_REPOSITORY:ref:$GITHUB_REF/"
-  echo "Uploading to https://d1ejkd31ehnyp8.cloudfront.net${PREFIX}${MUNICIPALITY_CODE}.pmtiles"
+  PMTILES_URL="https://d1ejkd31ehnyp8.cloudfront.net${PREFIX}${MUNICIPALITY_CODE}.pmtiles"
+  echo "Uploading to ${PMTILES_URL}"
+  echo "pmtiles_url=${PMTILES_URL}" >> $GITHUB_OUTPUT
 fi
 
 aws s3 cp ./$MUNICIPALITY_CODE.pmtiles s3://${DEPLOY_S3_BUCKET}${PREFIX}

@@ -12,9 +12,12 @@ jobs:
     name: Test this action
 
     permissions:
-     contents: read
-     id-token: write
-     pages: write
+      contents: read
+      id-token: write
+      pages: write
+
+    outputs:
+      pmtiles_url: ${{ steps.upload-action.outputs.pmtiles_url }}
 
     steps:
       - name: checkout
@@ -27,6 +30,7 @@ jobs:
           aws-region: ap-northeast-1
 
       - name: Run this action
+        id: upload-action
         uses: ./
         with:
           INPUT_DIR: './docs'
