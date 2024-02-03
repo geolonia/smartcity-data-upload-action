@@ -41,17 +41,21 @@ const geojsonToMbtiles = async (inputDir) => {
 
   console.log(mbtilesPaths)
 
-  await exec([
-    'tile-join',
-    '--force',
-    '-o', `smartcity_csv.mbtiles`,
-    '--overzoom',
-    '--no-tile-size-limit',
-    '--tile-stats-values-limit=0',
-    ...mbtilesPaths,
-  ].map(x => `'${x}'`).join(" "));
+  if (mbtilesPaths.length > 0) {
+    await exec([
+      'tile-join',
+      '--force',
+      '-o', `smartcity_csv.mbtiles`,
+      '--overzoom',
+      '--no-tile-size-limit',
+      '--tile-stats-values-limit=0',
+      ...mbtilesPaths,
+    ].map(x => `'${x}'`).join(" "));
 
-  console.log(`Wrote smartcity_csv.mbtiles`);
+    console.log(`Wrote smartcity_csv.mbtiles`);
+  } else {
+    console.log(`No .geojson files found in ${inputDir}!`);
+  }
 
   // tmpdir の中のファイルをlist する
   const files = await fs.promises.readdir(tmpdir);

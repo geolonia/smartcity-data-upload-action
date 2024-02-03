@@ -12,11 +12,15 @@ if which gsed &> /dev/null; then
   sed='gsed'
 fi
 
+createdMbtilesArchives=0
+
 for shp in $(find "$input" -name '*.shp'); do
   input_shp_name=$(basename "$shp" .shp)
   out_geojson="${outdir}/${input_shp_name}.tmp_ndgeojson"
   s_srs_args=""
   if [[ ! -f "${input}/${input_shp_name}.prj" ]]; then
+    # TODO: 自治体によってデフォルトのEPSGが異なるので、正しいマッピングを作成する必要がある。
+    # 現在、直角座標系 EPSG:2446 (第4系) が固定でデフォルトとして指定されています。
     s_srs_args="-s_srs EPSG:2446 "
   fi
   encoding_args=""
@@ -36,6 +40,7 @@ done
 for geojson in $(find "${outdir}" -name '*.ndgeojson'); do
   name=$(basename "$geojson" .ndgeojson)
   # ignore any errors because some files don't have any features
+  set +e
   tippecanoe \
     -Z0 -z14 \
     --read-parallel \
@@ -46,15 +51,24 @@ for geojson in $(find "${outdir}" -name '*.ndgeojson'); do
     --tile-stats-values-limit=0 \
     --layer="${name}" \
     --output="${outdir}"/"${name}".mbtiles \
-    "$geojson" || true
+    "$geojson"
+  if [[ $? -eq 0 ]]; then
+    createdMbtilesArchives=$((createdMbtilesArchives+1))
+  fi
+  set -e
 done
 
-tile-join \
-  --force \
-  --overzoom \
-  --no-tile-size-limit \
-  --tile-stats-values-limit=0 \
-  -o ./smartcity_shape.mbtiles \
-  "${outdir}"/*.mbtiles
+echo "We created $createdMbtilesArchives mbtiles archives."
+
+# If there are no mbtiles archives to process, tile-join will return an error.
+if [[ $createdMbtilesArchives -gt 0 ]]; then
+  tile-join \
+    --force \
+    --overzoom \
+    --no-tile-size-limit \
+    --tile-stats-values-limit=0 \
+    -o ./smartcity_shape.mbtiles \
+    "${outdir}"/*.mbtiles
+fi
 
 rm -r "$outdir"
