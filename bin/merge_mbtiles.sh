@@ -24,6 +24,7 @@ fi
 echo "Merging ${MBTILES_LIST[@]} into ./$MUNICIPALITY_CODE.mbtiles"
 
 tile-join \
+  --name="${TILESET_NAME}" \
   --force \
   --overzoom \
   --no-tile-size-limit \

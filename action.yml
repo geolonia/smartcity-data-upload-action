@@ -7,6 +7,11 @@ inputs:
     required: true
     default: './'
 
+  NAME:
+    description: 'Geolonia SmartMap で表示するときの表示名'
+    required: true
+    default: 'Geolonia SmartMap サンプルマップ'
+
   MUNICIPALITY_CODE:
     description: '全国地方公共団体コード (5桁)'
     required: true
@@ -21,5 +26,6 @@ runs:
   image: 'Dockerfile'
   env:
     INPUT_DIR: ${{ inputs.INPUT_DIR }}
+    TILESET_NAME: ${{ inputs.NAME }}
     MUNICIPALITY_CODE: ${{ inputs.MUNICIPALITY_CODE }}
     DEPLOY_S3_BUCKET: ${{ inputs.DEPLOY_S3_BUCKET }}
