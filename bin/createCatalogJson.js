@@ -37,6 +37,9 @@ function createCatalogJson(dirPath) {
       }
 
     } else {
+
+      console.log(file);
+
       // ファイルの場合
       const fileNameWithoutExt = getFileNameWithoutExtension(file.name);
       const dataItem = {
