@@ -34,7 +34,7 @@ jobs:
         uses: ./
         with:
           INPUT_DIR: './docs'
-          MUNICIPALITY_CODE: '00000'
+          MUNICIPALITY_CODE: '37201'
           NAME: 'smartcity-smartmap'
 
       - name: Smartmap
