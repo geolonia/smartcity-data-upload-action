@@ -24,8 +24,6 @@ const csvToGeoJSON = async (csvString) => {
           }
         }
 
-        console.log(latField, lonField);
-
         if (!latField || !lonField) {
           console.log("緯度または経度の列が見つかりません。");
           return;
