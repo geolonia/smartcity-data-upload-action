@@ -30,6 +30,8 @@ const excelToGeoJson = async (inputDir) => {
       csvData = await readFile(file.path, 'utf-8');
     }
 
+    console.log(csvData);
+
     if (csvData) {
       const geoJsonPath = file.path.replace(/.csv$|.xlsx$/, '.geojson');
 
