@@ -8,7 +8,12 @@ const convertToUtf8 = (content) => {
     return iconv.decode(content, 'Shift_JIS');
   }
 
-  return content;
+  // UTF-8 と判定された場合はそのまま返す
+  if (detectedEncoding === 'UTF-8') {
+    return content;
+  }
+
+  return false;
 }
 
 module.exports = convertToUtf8;
