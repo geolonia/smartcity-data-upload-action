@@ -3,6 +3,8 @@ const { writeFile, readFile } = require('fs/promises');
 const klaw = require('klaw');
 const ConversionError = require('./error');
 const csvToGeoJSON = require('./csv-to-geojson');
+const convertToUtf8 = require('./convertToUtf8');
+
 const inputDir = process.argv[2];
 
 const excelToGeoJson = async (inputDir) => {
@@ -26,7 +28,9 @@ const excelToGeoJson = async (inputDir) => {
         throw new ConversionError("excelToGeoJson", excelPath);
       }
     } else if (file.path.endsWith(".csv")) {
-      csvData = await readFile(file.path, 'utf-8');
+      csvData = await readFile(file.path);
+      csvData = convertToUtf8(csvData);
+      csvData = csvData.toString('utf-8');
     }
 
     if (csvData) {

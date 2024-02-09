@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jschardet": "^3.0.0",
     "klaw": "^4.1.0",
     "papaparse": "^5.4.1",
     "sqlite": "^5.1.1",
