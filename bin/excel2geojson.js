@@ -1,9 +1,10 @@
 const { excel2csv } = require('./excel2csv');
 const { writeFile, readFile } = require('fs/promises');
 const klaw = require('klaw');
-const csv2geojson = require('csv2geojson');
 const ConversionError = require('./error');
-const path = require('path');
+const csvToGeoJSON = require('./csv-to-geojson');
+const convertToUtf8 = require('./convertToUtf8');
+
 const inputDir = process.argv[2];
 
 const excelToGeoJson = async (inputDir) => {
@@ -27,7 +28,16 @@ const excelToGeoJson = async (inputDir) => {
         throw new ConversionError("excelToGeoJson", excelPath);
       }
     } else if (file.path.endsWith(".csv")) {
-      csvData = await readFile(file.path, 'utf-8');
+      csvData = await readFile(file.path);
+      csvData = convertToUtf8(csvData);
+
+      if (!csvData) {
+        // 警告を出力
+        console.log(`Error: CSV データ ${file.path} を UTF-8 に変換できませんでした。`);
+        continue;
+      }
+
+      csvData = csvData.toString('utf-8');
     }
 
     if (csvData) {
@@ -35,11 +45,13 @@ const excelToGeoJson = async (inputDir) => {
 
       try {
 
-        csv2geojson.csv2geojson(
-          csvData,
-          async (err, geojson) => {
-            await writeFile(geoJsonPath, JSON.stringify(geojson));
-          });
+        const geojson = await csvToGeoJSON(csvData);
+        if (!geojson) {
+          console.log(`Error: CSV データ ${file.path} を GeoJSON に変換できませんでした。`);
+          continue;
+        }
+
+        await writeFile(geoJsonPath, JSON.stringify(geojson));
 
       } catch (err) {
         throw new ConversionError("csvToGeoJson", file.path);

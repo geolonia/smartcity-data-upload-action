@@ -12,10 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csv2geojson": "^5.1.2",
+    "jschardet": "^3.0.0",
     "klaw": "^4.1.0",
+    "papaparse": "^5.4.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.6",
+    "uuid": "^9.0.1",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   }
 }

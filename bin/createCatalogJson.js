@@ -37,6 +37,12 @@ function createCatalogJson(dirPath) {
       }
 
     } else {
+
+      // 緯度経度がない CSV/Excel は、GeoJSON に変換しないので、catalog.json に含めない
+      if (!file.name.endsWith(".geojson")) {
+        return;
+      }
+
       // ファイルの場合
       const fileNameWithoutExt = getFileNameWithoutExtension(file.name);
       const dataItem = {

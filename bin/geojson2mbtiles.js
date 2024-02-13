@@ -4,6 +4,7 @@ const fs = require('fs');
 const klaw = require('klaw');
 const path = require('path');
 const exec = promisify(_exec);
+const uuid = require('uuid');
 
 const inputDir = process.argv[2];
 
@@ -17,10 +18,13 @@ const geojsonToMbtiles = async (inputDir) => {
 
     if (file.path.endsWith(".geojson")) {
       const fileName = path.basename(file.path, '.geojson');
+
+      // 同名ファイルがある場合にエラーが出るので、uuidをつける
+      const tileFileName = fileName + "-" + uuid.v4();
       console.log(`Processing ${fileName}...`);
 
       const geojsonPath = file.path;
-      const mbtilesPath = path.join(tmpdir, `${fileName}.mbtiles`);
+      const mbtilesPath = path.join(tmpdir, `${tileFileName}.mbtiles`);
 
       await exec([
         'tippecanoe',
