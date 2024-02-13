@@ -55,6 +55,12 @@ const csvToGeoJSON = async (csvString) => {
           }).filter(feature => feature !== null)
         };
 
+        //geojson の features が空の場合はエラー
+        if (geoJson.features.length === 0) {
+          console.log("緯度・経度の列に数値以外の値が含まれているか、データが空です。");
+          resolve(false);
+        }
+
         resolve(geoJson);
       },
       error: (err) => {
