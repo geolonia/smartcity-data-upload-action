@@ -32,6 +32,7 @@ const excelToGeoJson = async (inputDir) => {
       csvData = convertToUtf8(csvData);
 
       if (!csvData) {
+        // 警告を出力
         console.log(`Error: CSV データ ${file.path} を UTF-8 に変換できませんでした。`);
         continue;
       }
