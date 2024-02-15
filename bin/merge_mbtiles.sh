@@ -12,9 +12,9 @@ fi
 if [ -f ./smartcity_csv.mbtiles ]; then
   MBTILES_LIST+=("./smartcity_csv.mbtiles")
 fi
-if [ -f ./smartcity_municipality_mask.mbtiles ]; then
-  MBTILES_LIST+=("./smartcity_municipality_mask.mbtiles")
-fi
+# if [ -f ./smartcity_municipality_mask.mbtiles ]; then
+#   MBTILES_LIST+=("./smartcity_municipality_mask.mbtiles")
+# fi
 
 if [ ${#MBTILES_LIST[@]} -eq 0 ]; then
   echo "No mbtiles to merge."

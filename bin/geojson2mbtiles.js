@@ -29,10 +29,9 @@ const geojsonToMbtiles = async (inputDir) => {
       await exec([
         'tippecanoe',
         '-o', mbtilesPath,
-        '-Z0', '-z14',
+        '-Z14', '-z18',
         '-l', fileName,
-        '--cluster-distance=10',
-        '--cluster-densest-as-needed',
+        '-r1',
         '--no-feature-limit',
         '--no-tile-size-limit',
         '--tile-stats-values-limit=0',

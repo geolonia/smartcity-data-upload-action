@@ -14,8 +14,8 @@ node ./bin/excel2geojson.js $INPUT_DIR_PATH
 node ./bin/geojson2mbtiles.js $INPUT_DIR_PATH
 # Shapefile を mbtiles に変換
 bin/shape2mbtiles.sh $INPUT_DIR_PATH
-# 市区町村の形マスクをダウンロードし、mbtiles に変換
-bin/mask2mbtiles.sh $MUNICIPALITY_CODE
+# # 市区町村の形マスクをダウンロードし、mbtiles に変換
+# bin/mask2mbtiles.sh $MUNICIPALITY_CODE
 # mbtiles を統合
 bin/merge_mbtiles.sh $MUNICIPALITY_CODE
 
