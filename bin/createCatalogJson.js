@@ -4,11 +4,6 @@ const path = require('path');
 // ディレクトリのパス
 const INPUT_DIR = process.argv[2];
 
-// ファイル名から拡張子を除いた名前を取得する関数
-function getFileNameWithoutExtension(fileName) {
-  return path.basename(fileName, path.extname(fileName));
-}
-
 // 相対パスを取得する関数
 function getRelativePath(fullPath) {
   let input_dir = INPUT_DIR;
@@ -19,15 +14,25 @@ function getRelativePath(fullPath) {
 function createCatalogJson(dirPath) {
   const items = [];
   const files = fs.readdirSync(dirPath, { withFileTypes: true });
-
-  files.forEach(file => {
+  for (const file of files) {
     if (file.isDirectory()) {
-      // ディレクトリの場合
+      // ディレクトリの場合, カテゴリを作って、itemsを再起的に追加する
+
+      // 隠しディレクトリはスキップする
+      if (file.name.startsWith('.')) {
+        continue;
+      }
+
+      const subItems = createCatalogJson(path.join(dirPath, file.name));
+      if (subItems.length === 0) {
+        // カテゴリにアイテムがない場合は、スキップする
+        continue;
+      }
       const category = {
         type: "Category",
         id: getRelativePath(path.join(dirPath, file.name)),
         name: file.name,
-        items: createCatalogJson(path.join(dirPath, file.name)) // 再帰的に処理
+        items: subItems,
       };
 
       // 同じ id が存在する場合は、スキップする
@@ -38,13 +43,17 @@ function createCatalogJson(dirPath) {
 
     } else {
 
-      // 緯度経度がない CSV/Excel は、GeoJSON に変換しないので、catalog.json に含めない
-      if (!file.name.endsWith(".geojson")) {
-        return;
+      // CSV/Excelは緯度軽度あればGeoJSONに変換される。
+      // GeoJSON, SHP はそのままmbtilesに変換される。
+      // そのため、GeoJSON, SHP 以外のファイルは無視しても問題ない。
+      const rawExt = path.extname(file.name);
+      const ext = rawExt.toLowerCase();
+      if (ext !== ".geojson" && ext !== ".shp") {
+        continue;
       }
 
       // ファイルの場合
-      const fileNameWithoutExt = getFileNameWithoutExtension(file.name);
+      const fileNameWithoutExt = path.basename(file.name, rawExt);
       const dataItem = {
         type: "DataItem",
         id: getRelativePath(path.join(dirPath, fileNameWithoutExt)),
@@ -59,7 +68,7 @@ function createCatalogJson(dirPath) {
         items.push(dataItem);
       }
     }
-  });
+  };
 
   return items;
 }
