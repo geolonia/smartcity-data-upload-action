@@ -21,6 +21,11 @@ inputs:
     required: true
     default: 'smartcitystandaloneinfra-smartcitystandaloneinfra-w7czadiwetse'
 
+  shapefile_undefined_crs_setting:
+    description: '.prj ファイルが存在しないときに使うCRS'
+    required: true
+    default: 'EPSG:2446'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -29,3 +34,4 @@ runs:
     TILESET_NAME: ${{ inputs.NAME }}
     MUNICIPALITY_CODE: ${{ inputs.MUNICIPALITY_CODE }}
     DEPLOY_S3_BUCKET: ${{ inputs.DEPLOY_S3_BUCKET }}
+    SHAPEFILE_UNDEFINED_CRS_SETTING: ${{ inputs.shapefile_undefined_crs_setting }}

@@ -14,14 +14,14 @@ fi
 
 createdMbtilesArchives=0
 
+undefined_crs_setting=${SHAPEFILE_UNDEFINED_CRS_SETTING:-"EPSG:2446"}
 for shp in $(find "$input" -name '*.shp'); do
   input_shp_name=$(basename "$shp" .shp)
   out_geojson="${outdir}/${input_shp_name}.tmp_ndgeojson"
   s_srs_args=""
   if [[ ! -f "${input}/${input_shp_name}.prj" ]]; then
-    # TODO: 自治体によってデフォルトのEPSGが異なるので、正しいマッピングを作成する必要がある。
-    # 現在、直角座標系 EPSG:2446 (第4系) が固定でデフォルトとして指定されています。
-    s_srs_args="-s_srs EPSG:2446 "
+    # TODO: 自治体によってデフォルトのEPSGが異なるので、自治体コードからマッピングすると優しいかも。
+    s_srs_args="-s_srs ${undefined_crs_setting} "
   fi
   encoding_args=""
   if [[ ! -f "${input}/${input_shp_name}.cpg" ]]; then
