@@ -11,7 +11,7 @@ const convertToUtf8 = (content) => {
   }
 
   // UTF-8 と判定された場合はそのまま返す
-  if (detectedEncoding === 'UTF-8') {
+  if (detectedEncoding === 'UTF-8' || detectedEncoding === 'ascii') {
     return content;
   }
 
