@@ -45,13 +45,13 @@ const excelToGeoJson = async (inputDir) => {
 
       try {
 
-        const geojson = await csvToGeoJSON(csvData);
-        if (!geojson) {
+        const geojsonStr = await csvToGeoJSON(csvData);
+        if (!geojsonStr) {
           console.log(`Error: CSV データ ${file.path} を GeoJSON に変換できませんでした。`);
           continue;
         }
 
-        await writeFile(geoJsonPath, JSON.stringify(geojson));
+        await writeFile(geoJsonPath, geojsonStr);
 
       } catch (err) {
         throw new ConversionError("csvToGeoJson", file.path);
