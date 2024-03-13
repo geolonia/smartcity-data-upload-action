@@ -44,7 +44,8 @@ const csvToGeoJSON = (csvString) => {
           const lonValue = parseFloat(record[lonField]);
 
           if (isNaN(latValue) || isNaN(lonValue)) {
-            return null;
+            // 緯度・経度の値が数値でない場合はスキップ
+            continue;
           }
 
           // recordから緯度・経度のフィールドを削除
